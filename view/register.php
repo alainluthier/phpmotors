@@ -21,7 +21,7 @@
         <nav>
             <?php require $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/nav.php'; ?>
         </nav>
-        <main>
+        <main class="login">
             <h1>Register</h1>
             <form action="">
                 <div>
@@ -39,10 +39,10 @@
                 <p>Password must be at least 8 characters and contain at least 1 number, 1 capital letter and 1 special character</p>
                 <div>
                     <label for="password">Password</label>
-                    <input type="text" name="password" id="password">
+                    <input type="password" name="password" id="password">
                 </div>
-                <button type="submit">Sign-in</button>
-                <a href="http://">Not a member yet?</a>
+                <button type="button" class="show-password">Show Password</button>
+                <button type="submit"  class="primary">Register</button>
             </form>
         </main>
         <footer>

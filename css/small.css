@@ -153,4 +153,33 @@ footer p{
 .home-content section:nth-of-type(1) section div{
     display: block;
 }
-
+/*LOGIN*/
+header h3 a{
+    color: inherit; 
+    text-decoration: inherit; 
+}
+.login h1{
+    font-size: 1.5rem;
+}
+.login form div{
+    display: grid;
+    grid-template-columns: 1fr;
+}
+.login form{
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 1rem;
+    max-width: 280px;
+}
+.primary{
+    max-width: 120px;
+    background-color: #4c96d7;
+    color: black;
+}
+.show-password{
+    background-color: #3a3a3a;
+    color: white;
+    max-width: 200px;
+    height: 40px;
+    margin-top: -15px;
+}

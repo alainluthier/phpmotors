@@ -21,7 +21,7 @@
         <nav>
             <?php require $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/nav.php'; ?>
         </nav>
-        <main>
+        <main class="login">
             <h1>Sign In</h1>
             <form action="">
                 <div>
@@ -30,9 +30,9 @@
                 </div>
                 <div>
                     <label for="password">Password</label>
-                    <input type="text" name="password" id="password">
+                    <input type="password" name="password" id="password">
                 </div>
-                <button type="submit">Sign-in</button>
+                <button type="submit" class="primary">Sign-in</button>
                 <a href="/phpmotors/accounts/index.php?action=<?php echo urlencode('register') ?>">Not a member yet?</a>
             </form>
         </main>
