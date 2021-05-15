@@ -1,6 +1,3 @@
-<?php require  $_SERVER['DOCUMENT_ROOT'].'/phpmotors/library/connections.php'; 
-phpmotorsConnect();
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
