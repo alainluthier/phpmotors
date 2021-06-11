@@ -20,18 +20,20 @@ body {
 
 
 /*----------- FOOTER --------------*/
-.center h3{
+.center h2{
     padding-left: 1rem;
     font-size: 1.3rem;
+    top:200px;
 }    
 .center p{
     padding-left: 1rem;
     font-size: 0.9rem;
     width: 150px;
+    top:230px;
 }
 .button{
     position: absolute;
-    top: 270px;
+    top: 300px;
     padding-left: 0.5rem;
 }
 .center img{
