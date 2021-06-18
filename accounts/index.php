@@ -123,6 +123,20 @@ switch ($action) {
               session_destroy();
               header('Location: /phpmotors/');
               break;
+        case 'client':
+              include '../view/client-update.php';
+              exit;
+              break;
+        case 'updateClient':
+              $clientFirstname = trim(filter_input(INPUT_POST, 'clientFirstname', FILTER_SANITIZE_STRING));
+              $clientLastname = trim(filter_input(INPUT_POST, 'clientLastname',FILTER_SANITIZE_STRING));
+              $clientEmail = trim(filter_input(INPUT_POST, 'clientEmail', FILTER_SANITIZE_EMAIL));
+              $clientPassword = trim(filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_STRING));
+              $clientEmail = checkEmail($clientEmail);
+              $checkPassword = checkPassword($clientPassword);
+
+              $existingEmail = checkExistingEmail($clientEmail);
+              break;
     default:
         include '../view/admin.php';
         break;

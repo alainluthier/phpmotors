@@ -28,12 +28,21 @@ if ($_SESSION['loggedin'] != TRUE) {
         </nav>
         <main>
             <h1><?php echo $_SESSION['clientData']['clientFirstname'] . ' ' . $_SESSION['clientData']['clientLastname']; ?></h1>
+            <?php
+            if (isset($message)) {
+                echo $message;
+            }
+            ?>
             <p>You are logged in.</p>
             <ul>
                 <li>First Name: <?php echo $_SESSION['clientData']['clientFirstname'] ?> </li>
                 <li>Last Name: <?php echo $_SESSION['clientData']['clientLastname'] ?> </li>
                 <li>EmailAddress: <?php echo $_SESSION['clientData']['clientEmail'] ?> </li>
             </ul>
+            <h3>Account Manager</h3>
+            <p>Use this link to update account information</p>
+            <a href="/phpmotors/accounts?action=client">Update Account Information</a>
+            <br>
             <?php 
                 if($_SESSION['clientData']['clientLevel']>1){
                     echo '<h3>Inventory Manager</h3>

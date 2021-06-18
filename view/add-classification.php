@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+<?php
+if ($_SESSION['clientData']['clientLevel'] < 2) {
+ header('location: /phpmotors/');
+ exit;
+}
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -41,6 +46,7 @@
             <?php require $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/footer.php'; ?>
         </footer>
     </div>
+    
 </body>
 
 </html>
