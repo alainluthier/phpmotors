@@ -1,28 +1,53 @@
 /* 64em is also 1028px (if basefont is 16px) */
 @media only screen and (min-width: 64rem) {
-/*----------- BODY --------------*/
+    /*----------- BODY --------------*/
 
 
 
-/*----------- HEADER --------------*/
+    /*----------- HEADER --------------*/
 
 
 
-/*----------- NAVIGATION --------------*/
+    /*----------- NAVIGATION --------------*/
 
 
 
-/*----------- MAIN --------------*/
+    /*----------- MAIN --------------*/
 
 
 
-/*----------- FOOTER --------------*/
-#container{
-    max-width: 1024px;
-    margin-left: auto;
-    margin-right: auto;
-    
+    /*----------- FOOTER --------------*/
+    #container {
+        max-width: 1024px;
+        margin-left: auto;
+        margin-right: auto;
+
+    }
+
+    /* For vehicle display in classification view */
+    #inv-display {
+        flex-flow: row wrap;
+        justify-content: flex-start;
+    }
+
+    #inv-display h2 {
+        font-size: 1rem;
+    }
+
+    #inv-display li {
+        max-width: 200px;
+        flex: 1 0 auto;
+        text-align: center;
+        height: 250px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    #inv-display div {
+        width: 100%;
+    }
+
 }
-    
-} /* end of media query */
 
+/* end of media query */
