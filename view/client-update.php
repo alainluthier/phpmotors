@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+<?php
+if (!$_SESSION['loggedin']) {
+ header('location: /phpmotors/');
+ exit;
+}
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -23,35 +28,41 @@
         </nav>
         <main>
             <h1>Manage Accout</h1>
-            <h3>Update Account</h3>
-            <form action="/phpmotors/accounts" method="POST">
+            <h2>Update Account</h2>
+            <?php
+            if (isset($message)) {
+                echo $message;
+            }
+            ?>
+            <form action="/phpmotors/accounts/index.php" method="POST">
                 <div>
-                    <label for="firstName">First Name</label>
-                    <input type="text" name="clientFirstname">
+                    <label for="clientFirstname">First Name</label>
+                    <input type="text" id="clientFirstname" name="clientFirstname" required <?php if(isset($clientFirstname)){ echo "value='$clientFirstname'"; } elseif(isset($invInfo['clientFirstname'])) {echo "value='$invInfo[clientFirstname]'"; }?>>
                 </div>
 
                 <div>
-                    <label for="firstName">First Name</label>
-                    <input type="text" name="clientLastname">
+                    <label for="clientLastname">First Name</label>
+                    <input type="text" id="clientLastname" name="clientLastname" required <?php if(isset($clientLastname)){ echo "value='$clientLastname'"; } elseif(isset($invInfo['clientLastname'])) {echo "value='$invInfo[clientLastname]'"; }?>>
                 </div>
                 <div>
-                    <label for="firstName">Email</label>
-                    <input type="email" name="clientEmail">
+                    <label for="clientEmail">Email</label>
+                    <input type="email" id="clientEmail" name="clientEmail" required <?php if(isset($clientEmail)){ echo "value='$clientEmail'"; } elseif(isset($invInfo['clientEmail'])) {echo "value='$invInfo[clientEmail]'"; }?>>
                 </div>
                 <input type="hidden" name="action" value="updateClient">
                 <button class= "primary" type="submit">Update Info</button>
             </form>
-            <h3>Update Password</h3>
+            <h2>Update Password</h2>
             <span>Passwords must be at least 8 characters and contain at least 1 number, 1 capital letter and 1 special character</span> <br>
             <span>*note your original password will be changed</span>
             <br>
             <br>
-            <form action="/phpmotors/accounts" method="POST">
+            <form action="/phpmotors/accounts/index.php" method="POST">
                 <div>
-                    <label for="password">Password</label>
-                    <input type="hidden" name="action" value="updatePassword">
-                    <input type="password" name="clientPassword" id="clientPassword" required pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$">
+                    <label for="clientPassword">Password</label>
+                    <input type="password"  name="clientPassword" id="clientPassword" required pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$">
                 </div>
+                <input type="hidden" name="action" value="updatePassword">
+                <button class= "primary" type="submit">Update Password</button>
             </form>
 
         </main>

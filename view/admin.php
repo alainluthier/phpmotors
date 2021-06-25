@@ -29,8 +29,8 @@ if ($_SESSION['loggedin'] != TRUE) {
         <main>
             <h1><?php echo $_SESSION['clientData']['clientFirstname'] . ' ' . $_SESSION['clientData']['clientLastname']; ?></h1>
             <?php
-            if (isset($message)) {
-                echo $message;
+            if (isset($_SESSION['message'])) {
+                echo $_SESSION['message'];
             }
             ?>
             <p>You are logged in.</p>
