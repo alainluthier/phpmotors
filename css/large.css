@@ -47,7 +47,14 @@
     #inv-display div {
         width: 100%;
     }
-
+    .vehicle-detail{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 1rem;
+    }
+    .gray{
+        background-color: rgb(225, 243, 243);
+        padding: 1rem 0.5rem 1rem 0.5rem;
+    }
+    /* end of media query */
 }
-
-/* end of media query */

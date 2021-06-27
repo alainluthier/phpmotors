@@ -3,15 +3,6 @@
 // Create or access a Session
 session_start();
 // Get the database connection file
-if (!isset($_SESSION['loggedin'])) {
-  header('Location: /phpmotors/');
-} else if ($_SESSION['loggedin'] == FALSE) {
-  header('Location: /phpmotors/');
-}/*else{
-  if($_SESSION['clientData']['clientLevel']==1){
-    header('Location: /phpmotors/');
-  }
-}*/
 require_once '../library/connections.php';
 // Get the PHP Motors model for use as needed
 require_once '../model/main-model.php';
@@ -214,6 +205,7 @@ switch ($action) {
     } else {
       $vehicleDetailDisplay = buildVehicleDetailDisplay($vehicle);
     }
+    include '../view/view-detail.php';
     break;
   default:
     $classificationList = buildClassificationList($classifications);

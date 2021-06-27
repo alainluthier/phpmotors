@@ -43,11 +43,11 @@ function buildVehiclesDisplay($vehicles)
   $dv = '<ul id="inv-display">';
   foreach ($vehicles as $vehicle) {
     $dv .= '<li>';
-    $dv .= "<a href='/phpmotors/vehicles?action=vehicle&invMake" . urlencode($vehicle['invMake']) . "&invModel=" . urlencode($vehicle['invModel']) . "'>";
+    $dv .= "<a href='/phpmotors/vehicles?action=vehicle&invMake=" . urlencode($vehicle['invMake']) . "&invModel=" . urlencode($vehicle['invModel']) . "'>";
     $dv .= "<img src='$vehicle[invThumbnail]' alt='Image of $vehicle[invMake] $vehicle[invModel] on phpmotors.com'>";
     $dv .= '</a>';
     $dv .= '<hr>';
-    $dv .= "<a href='/phpmotors/vehicles?action=vehicle&invMake" . urlencode($vehicle['invMake']) . "&invModel=" . urlencode($vehicle['invModel']) . "'>";
+    $dv .= "<a href='/phpmotors/vehicles?action=vehicle&invMake=" . urlencode($vehicle['invMake']) . "&invModel=" . urlencode($vehicle['invModel']) . "'>";
     $dv .= "<h2>$vehicle[invMake] $vehicle[invModel]</h2>";
     $dv .= '</a>';
     $dv .= "<span>$vehicle[invPrice]</span>";
@@ -58,7 +58,7 @@ function buildVehiclesDisplay($vehicles)
 }
 function buildVehicleDetailDisplay($vehicle)
 {
-  $dv = '<h1>$vehicle[] Truck</h1>';
+  $dv = "<h1>$vehicle[invMake] $vehicle[invModel]</h1>";
   $dv .= '<div class="vehicle-detail">';
   $dv .= '  <div>';
   $dv .= "    <img src='$vehicle[invImage]' alt='Image of $vehicle[invMake] $vehicle[invModel]'>";

@@ -251,3 +251,10 @@ form {
 #inv-display li img {
     max-width: 100%;
 }
+.vehicle-detail img{
+    max-width: 100%;
+}
+.vehicle-detail{
+    display: grid;
+    grid-template-columns: 1fr;
+}
