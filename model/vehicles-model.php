@@ -116,7 +116,14 @@ function deleteVehicle($invId)
 function getVehiclesByClassification($classificationName)
 {
     $db = phpmotorsConnect();
-    $sql = 'SELECT * FROM inventory WHERE classificationId IN (SELECT classificationId FROM carclassification WHERE classificationName = :classificationName)';
+    $sql = "SELECT i.invId, i.invMake, i.invModel, i.invDescription, 
+	im.imgPath invThumbnail,
+    i.invPrice, i.invStock, i.invColor, i.classificationId 
+    FROM inventory i INNER JOIN images im ON i.invId=im.invId
+    WHERE classificationId 
+    IN (SELECT classificationId FROM carclassification WHERE classificationName = :classificationName) 
+    AND im.imgPrimary=1
+    AND im.imgPath like '%-tn.%'";
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':classificationName', $classificationName, PDO::PARAM_STR);
     $stmt->execute();
@@ -124,7 +131,8 @@ function getVehiclesByClassification($classificationName)
     $stmt->closeCursor();
     return $vehicles;
 }
-function getVehicle($invMake,$invModel){
+function getVehicle($invMake, $invModel)
+{
     $db = phpmotorsConnect();
     $sql = 'SELECT * FROM inventory WHERE invMake = :invMake and invModel = :invModel';
     $stmt = $db->prepare($sql);
@@ -134,4 +142,29 @@ function getVehicle($invMake,$invModel){
     $invInfo = $stmt->fetch(PDO::FETCH_ASSOC);
     $stmt->closeCursor();
     return $invInfo;
+}
+function getVehicles()
+{
+    $db = phpmotorsConnect();
+    $sql = 'SELECT invId, invMake, invModel FROM inventory';
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $invInfo = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $invInfo;
+}
+function getVehicleThumbnail($invId){
+    $db = phpmotorsConnect();
+    $sql = "SELECT i.invId, i.invMake, i.invModel, i.invDescription, 
+	im.imgPath invThumbnail,
+    i.invPrice, i.invStock, i.invColor, i.classificationId 
+    FROM inventory i INNER JOIN images im ON i.invId=im.invId
+    WHERE im.imgPath like '%-tn.%'
+    and i.invId=:invId";
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
+    $stmt->execute();
+    $vehicles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $vehicles;
 }

@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Server version: 10.3.16-MariaDB
--- PHP Version: 7.3.7
+-- Servidor: localhost
+-- Tiempo de generación: 03-07-2021 a las 07:44:43
+-- Versión del servidor: 10.3.27-MariaDB-0+deb10u1
+-- Versión de PHP: 7.3.27-1~deb10u1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,29 +18,101 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `phpmotors`
+-- Base de datos: `phpmotors`
 --
 
+-- --------------------------------------------------------
+
 --
--- Table structure for table `inventory`
+-- Estructura de tabla para la tabla `carclassification`
 --
-DROP TABLE IF EXISTS `inventory`;
+
+CREATE TABLE `carclassification` (
+  `classificationId` int(11) NOT NULL,
+  `classificationName` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `carclassification`
+--
+
+INSERT INTO `carclassification` (`classificationId`, `classificationName`) VALUES
+(1, 'SUV'),
+(2, 'Classic'),
+(3, 'Sports'),
+(4, 'Trucks'),
+(5, 'Used');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `clients`
+--
+
+CREATE TABLE `clients` (
+  `clientId` int(10) UNSIGNED NOT NULL,
+  `clientFirstname` varchar(15) NOT NULL,
+  `clientLastname` varchar(25) NOT NULL,
+  `clientEmail` varchar(40) NOT NULL,
+  `clientPassword` varchar(255) NOT NULL,
+  `clientLevel` enum('1','2','3') NOT NULL DEFAULT '1',
+  `comment` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `clients`
+--
+
+INSERT INTO `clients` (`clientId`, `clientFirstname`, `clientLastname`, `clientEmail`, `clientPassword`, `clientLevel`, `comment`) VALUES
+(1, 'Admin', 'Administrator', 'admin@cse340.net', '$2y$10$hg9EhPlL1GmyoE8TdU6CMOLBsBdRIcB5F/huEZ6sfgi1D2unZUAFq', '3', NULL),
+(2, 'Adam', 'Hansen', 'adam@test.com', '$2y$10$HZUr1XW7NeCKSdHKLjrLMeGWbvqDrmQ7xdPmi9d5OdCDwoBX9uqFC', '1', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `images`
+--
+
+CREATE TABLE `images` (
+  `imgId` int(11) NOT NULL,
+  `invId` int(11) NOT NULL,
+  `imgName` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `imgPath` varchar(150) CHARACTER SET latin1 NOT NULL,
+  `imgDate` timestamp NOT NULL DEFAULT current_timestamp(),
+  `imgPrimary` tinyint(4) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `images`
+--
+
+INSERT INTO `images` (`imgId`, `invId`, `imgName`, `imgPath`, `imgDate`, `imgPrimary`) VALUES
+(3, 2, 'vive_sin_violencia.jpg', '/phpmotors/uploads/images/vive_sin_violencia.jpg', '2021-06-28 17:38:38', 0),
+(4, 2, 'vive_sin_violencia-tn.jpg', '/phpmotors/uploads/images/vive_sin_violencia-tn.jpg', '2021-06-28 17:38:39', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `inventory`
+--
+
 CREATE TABLE `inventory` (
-  `invId` int UNSIGNED NOT NULL,
+  `invId` int(11) NOT NULL,
   `invMake` varchar(30) NOT NULL,
   `invModel` varchar(30) NOT NULL,
   `invDescription` text NOT NULL,
   `invImage` varchar(50) NOT NULL,
   `invThumbnail` varchar(50) NOT NULL,
   `invPrice` decimal(10,0) NOT NULL,
-  `invStock` smallint NOT NULL,
+  `invStock` smallint(6) NOT NULL,
   `invColor` varchar(20) NOT NULL,
-  `classificationId` int NOT NULL
+  `classificationId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `inventory`
+-- Volcado de datos para la tabla `inventory`
 --
+
 INSERT INTO `inventory` (`invId`, `invMake`, `invModel`, `invDescription`, `invImage`, `invThumbnail`, `invPrice`, `invStock`, `invColor`, `classificationId`) VALUES
 (1, 'Jeep ', 'Wrangler', 'The Jeep Wrangler is small and compact with enough power to get you where you want to go. Its great for everyday driving as well as offroading weather that be on the the rocks or in the mud!', '/phpmotors/images/wrangler.jpg', '/phpmotors/images/wrangler-tn.jpg', '28045', 4, 'Orange', 1),
 (2, 'Ford', 'Model T', 'The Ford Model T can be a bit tricky to drive. It was the first car to be put into production. You can get it in any color you want as long as it\'s black.', '/phpmotors/images/model-t.jpg', '/phpmotors/images/model-t-tn.jpg', '30000', 2, 'Black', 2),
@@ -59,87 +131,79 @@ INSERT INTO `inventory` (`invId`, `invMake`, `invModel`, `invDescription`, `invI
 (15, 'Dog ', 'Car', 'Do you like dogs? Well this car is for you straight from the 90s from Aspen, Colorado we have the orginal Dog Car complete with fluffy ears.  ', '/phpmotors/images/no-image.png', '/phpmotors/images/no-image-tn.png', '35000', 1, 'Brown', 2);
 
 --
--- Indexes for table `inventory`
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `carclassification`
+--
+ALTER TABLE `carclassification`
+  ADD PRIMARY KEY (`classificationId`);
+
+--
+-- Indices de la tabla `clients`
+--
+ALTER TABLE `clients`
+  ADD PRIMARY KEY (`clientId`);
+
+--
+-- Indices de la tabla `images`
+--
+ALTER TABLE `images`
+  ADD PRIMARY KEY (`imgId`),
+  ADD KEY `inventory_idx` (`invId`);
+
+--
+-- Indices de la tabla `inventory`
 --
 ALTER TABLE `inventory`
   ADD PRIMARY KEY (`invId`),
   ADD KEY `classificationId` (`classificationId`);
 
 --
--- AUTO_INCREMENT for table `inventory`
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `carclassification`
+--
+ALTER TABLE `carclassification`
+  MODIFY `classificationId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `clients`
+--
+ALTER TABLE `clients`
+  MODIFY `clientId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `images`
+--
+ALTER TABLE `images`
+  MODIFY `imgId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `invId` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-  
---
--- Table structure for table `carclassification`
---
-DROP TABLE IF EXISTS `carclassification`;
-CREATE TABLE `carclassification` (
-  `classificationId` int NOT NULL,
-  `classificationName` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  MODIFY `invId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- Dumping data for table `carclassification`
+-- Restricciones para tablas volcadas
 --
-INSERT INTO `carclassification` (`classificationId`, `classificationName`) VALUES
-(1, 'SUV'),
-(2, 'Classic'),
-(3, 'Sports'),
-(4, 'Trucks'),
-(5, 'Used');
 
 --
--- Indexes for table `carclassification`
+-- Filtros para la tabla `images`
 --
-ALTER TABLE `carclassification`
-  ADD PRIMARY KEY (`classificationId`);
-  
+ALTER TABLE `images`
+  ADD CONSTRAINT `FK_inv_images` FOREIGN KEY (`invId`) REFERENCES `inventory` (`invId`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 --
--- AUTO_INCREMENT for table `carclassification`
---
-ALTER TABLE `carclassification`
-  MODIFY `classificationId` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-  
---
--- Constraints for table `inventory`
+-- Filtros para la tabla `inventory`
 --
 ALTER TABLE `inventory`
   ADD CONSTRAINT `inventory_ibfk_1` FOREIGN KEY (`classificationId`) REFERENCES `carclassification` (`classificationId`);
 COMMIT;
-
---
--- Table structure for table `clients`
---
-DROP TABLE IF EXISTS `clients`;
-CREATE TABLE `clients` (
-  `clientId` int UNSIGNED NOT NULL,
-  `clientFirstname` varchar(15) NOT NULL,
-  `clientLastname` varchar(25) NOT NULL,
-  `clientEmail` varchar(40) NOT NULL,
-  `clientPassword` varchar(255) NOT NULL,
-  `clientLevel` enum('1','2','3') NOT NULL DEFAULT '1',
-  `comment` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Indexes for table `clients`
---
-ALTER TABLE `clients`
-  ADD PRIMARY KEY (`clientId`);
-  
---
--- AUTO_INCREMENT for table `clients`
---
-ALTER TABLE `clients`
-MODIFY `clientId` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
-
-INSERT INTO `clients` (`clientId`, `clientFirstname`,`clientLastname`,`clientEmail`,`clientPassword`,`clientLevel` ) VALUES
-(1, 'Admin','Administrator','admin@cse340.net','Sup3rU$er','3'),
-(2, 'Adam','Hansen','adam@test.com','Qwert12#45','1'); 
-  
-
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
