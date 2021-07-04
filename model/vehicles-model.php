@@ -134,7 +134,13 @@ function getVehiclesByClassification($classificationName)
 function getVehicle($invMake, $invModel)
 {
     $db = phpmotorsConnect();
-    $sql = 'SELECT * FROM inventory WHERE invMake = :invMake and invModel = :invModel';
+    $sql = "
+    SELECT i.invId, i.invMake, i.invModel, i.invDescription, 
+	im.imgPath invImage, 
+    i.invPrice, i.invStock, i.invColor, i.classificationId  
+    FROM inventory i INNER JOIN images im ON i.invId=im.invId 
+    WHERE i.invMake=:invMake AND i.invModel=:invModel 
+    ";
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':invMake', $invMake, PDO::PARAM_STR);
     $stmt->bindValue(':invModel', $invModel, PDO::PARAM_STR);
@@ -156,7 +162,7 @@ function getVehicles()
 function getVehicleThumbnail($invId){
     $db = phpmotorsConnect();
     $sql = "SELECT i.invId, i.invMake, i.invModel, i.invDescription, 
-	im.imgPath invThumbnail,
+	im.imgPath invThumbnail, im.imgName,
     i.invPrice, i.invStock, i.invColor, i.classificationId 
     FROM inventory i INNER JOIN images im ON i.invId=im.invId
     WHERE im.imgPath like '%-tn.%'

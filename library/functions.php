@@ -62,7 +62,7 @@ function buildVehicleDetailDisplay($vehicle,$thumbnail)
   $dv .= '<div class="vehicle-detail">';
   $dv .= '  <div class="img-small">';
   foreach($thumbnail as $k=>$v){
-    $dv .= "    <img class='thumbnail' src='$v[invThumbnail]' alt='Image of $v[invMake] $v[invModel]'>";
+    $dv .= "    <img class='thumbnail' src='$v[invThumbnail]' alt='Image of $v[imgName]'>";
   }
   $dv .= '  </div>';
   $dv .= '  <div>';
