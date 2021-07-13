@@ -56,12 +56,17 @@ function buildVehiclesDisplay($vehicles)
   $dv .= '</ul>';
   return $dv;
 }
-function buildVehicleDetailDisplay($vehicle)
+function buildVehicleDetailDisplay($vehicle,$thumbnail)
 {
   $dv = "<h1>$vehicle[invMake] $vehicle[invModel]</h1>";
   $dv .= '<div class="vehicle-detail">';
+  $dv .= '  <div class="img-small">';
+  foreach($thumbnail as $k=>$v){
+    $dv .= "    <img class='thumbnail' src='$v[invThumbnail]' alt='Image of $v[imgName]'>";
+  }
+  $dv .= '  </div>';
   $dv .= '  <div>';
-  $dv .= "    <img src='$vehicle[invImage]' alt='Image of $vehicle[invMake] $vehicle[invModel]'>";
+  $dv .= "    <img src='$vehicle[invImage]' alt='Image of $vehicle[invMake] $vehicle[invModel]' >";
   $dv .= "    <p><span>Price: $vehicle[invPrice]</span></p>";
   $dv .= '  </div>';
   $dv .= '  <div>';

@@ -203,7 +203,8 @@ switch ($action) {
     if (!count($vehicle)) {
       $message = "<p class='notice'>Sorry, no vehicle $invMake $invModel could be found.</p>";
     } else {
-      $vehicleDetailDisplay = buildVehicleDetailDisplay($vehicle);
+      $thumbnail = getVehicleThumbnail($vehicle['invId']);
+      $vehicleDetailDisplay = buildVehicleDetailDisplay($vehicle,$thumbnail);
     }
     include '../view/view-detail.php';
     break;

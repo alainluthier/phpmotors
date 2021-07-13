@@ -258,3 +258,6 @@ form {
     display: grid;
     grid-template-columns: 1fr;
 }
+.img-small{
+    display: none;
+}
