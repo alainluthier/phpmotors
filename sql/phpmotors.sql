@@ -123,6 +123,10 @@ CREATE TABLE `clients` (
   `comment` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT INTO `clients` (`clientId`, `clientFirstname`,`clientLastname`,`clientEmail`,`clientPassword`,`clientLevel` ) VALUES
+(1, 'Admin','Administrator','admin@cse340.net','$2y$10$hg9EhPlL1GmyoE8TdU6CMOLBsBdRIcB5F/huEZ6sfgi1D2unZUAFq','3'),
+(2, 'Adam','Hansen','adam@test.com','$2y$10$HZUr1XW7NeCKSdHKLjrLMeGWbvqDrmQ7xdPmi9d5OdCDwoBX9uqFC','1'); 
+
 --
 -- Indexes for table `clients`
 --
@@ -135,9 +139,7 @@ ALTER TABLE `clients`
 ALTER TABLE `clients`
 MODIFY `clientId` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
-INSERT INTO `clients` (`clientId`, `clientFirstname`,`clientLastname`,`clientEmail`,`clientPassword`,`clientLevel` ) VALUES
-(1, 'Admin','Administrator','admin@cse340.net','Sup3rU$er','3'),
-(2, 'Adam','Hansen','adam@test.com','Qwert12#45','1'); 
+
   
 
 

@@ -124,7 +124,8 @@ function getVehiclesByClassification($classificationName)
     $stmt->closeCursor();
     return $vehicles;
 }
-function getVehicle($invMake,$invModel){
+function getVehicle($invMake, $invModel)
+{
     $db = phpmotorsConnect();
     $sql = 'SELECT * FROM inventory WHERE invMake = :invMake and invModel = :invModel';
     $stmt = $db->prepare($sql);
@@ -132,6 +133,16 @@ function getVehicle($invMake,$invModel){
     $stmt->bindValue(':invModel', $invModel, PDO::PARAM_STR);
     $stmt->execute();
     $invInfo = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $invInfo;
+}
+function getVehicles()
+{
+    $db = phpmotorsConnect();
+    $sql = 'SELECT invId, invMake, invModel FROM inventory';
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $invInfo = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $stmt->closeCursor();
     return $invInfo;
 }
