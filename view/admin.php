@@ -50,6 +50,10 @@ if ($_SESSION['loggedin'] != TRUE) {
                     <a href="/phpmotors/vehicles">Vehicle Managment</a>';   
                 }
             ?>
+            <h3>Manage Your Products Review</h3>
+            <ul>
+            <?php echo $reviewsDisplay; ?>
+            </ul>
         </main>
         <footer>
             <?php require $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/footer.php'; ?>

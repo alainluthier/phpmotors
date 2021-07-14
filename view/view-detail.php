@@ -10,7 +10,7 @@
     <link href="/phpmotors/css/large.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Exo&display=swap" rel="stylesheet">
-    <title> | PHP Motors</title>
+    <title> <?php echo $vehicle['invMake']." ".$vehicle['invModel'];?> | PHP Motors</title>
 </head>
 
 <body>
@@ -45,7 +45,7 @@
                 </div>
                 <div>
                     <label for="reviewText">Review</label>
-                    <textarea class="txtarea" name="reviewText" id="reviewText" cols="30" rows="5"></textarea>
+                    <textarea class="txtarea" name="reviewText" id="reviewText" cols="30" rows="5" required></textarea>
                 </div>
                 <input type="hidden" name="action" value="addReview">
                 <input type="hidden" name="invId" value="'.$vehicle['invId'].'">

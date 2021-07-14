@@ -28,20 +28,42 @@ switch ($action) {
         $clientId = trim(filter_input(INPUT_POST, 'clientId', FILTER_SANITIZE_NUMBER_INT));
         if (empty($reviewText) || empty($invId) || empty($clientId)) {
             $_SESSION['message'] = '<p class="red">Please provide information for all empty form fields.</p>';
-            header("Location: /phpmotors/vehicles?action=vehicle&invMake=".$invMake."&invModel=" . $invModel);
+            header("Location: /phpmotors/vehicles?action=vehicle&invMake=" . $invMake . "&invModel=" . $invModel);
             exit;
         }
-        unset($_SESSION['message']);
+        $_SESSION['message'] = '<p class="red">Thank you for the review it is displayed below.</p>';
         $regOutcome = regReview(
             $reviewText,
             $invId,
             $clientId
         );
-        header("Location: /phpmotors/vehicles?action=vehicle&invMake=".$invMake."&invModel=" . $invModel);
+        header("Location: /phpmotors/vehicles?action=vehicle&invMake=" . $invMake . "&invModel=" . $invModel);
         break;
     case 'editReview':
+        $reviewId = filter_input(INPUT_GET, 'reviewId', FILTER_SANITIZE_NUMBER_INT);
+        $review = getReviewById($reviewId);
+        include '../view/review-edit.php';
         break;
     case 'updateReview':
+        $reviewId = filter_input(INPUT_POST, 'reviewId', FILTER_SANITIZE_NUMBER_INT);
+        $reviewText = filter_input(INPUT_POST, 'reviewText', FILTER_SANITIZE_STRING);
+        if (empty($reviewText) || empty($reviewId)) {
+            $message = '<p class="red">Please complete all information for the review.</p>';
+            include '../view/review-edit.php';
+            exit;
+        }
+        $review = getReviewById($reviewId);
+        $updateResult = updateReview($reviewId, $reviewText);
+        if ($updateResult) {
+            $message = "<p class='red'>Congratulations, the review was successfully updated.</p>";
+            $_SESSION['message'] = $message;
+            header('location: /phpmotors/accounts');
+            exit;
+        } else {
+            $message = "<p class='red'>Error. the review was not updated.</p>";
+            include '../view/review-edit.php';
+            exit;
+        }
         break;
     case 'confirmDeleteReview':
         break;

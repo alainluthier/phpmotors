@@ -247,3 +247,8 @@ function getReviewsView($review){
   $id .='</div>';
   return $id;
 }
+function getReviewListView($review){
+  $date = date("d F, Y",strtotime($review['reviewDate']));
+  $id = "<li>$review[invMake] $review[invModel] (Reviewed on $date) <a href='/phpmotors/reviews?action=editReview&reviewId=$review[reviewId]'>Edit</a> | <a href='/phpmotors/reviews?action=confirmDeleteReview&reviewId=$review[reviewId]'>Delete</a></li>";
+  return $id;
+}

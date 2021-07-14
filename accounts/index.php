@@ -9,6 +9,7 @@ require_once '../model/main-model.php';
 
 require_once '../model/accounts-model.php';
 
+require_once '../model/reviews-model.php';
 
 // Get the functions library
 require_once '../library/functions.php';
@@ -197,6 +198,12 @@ switch ($action) {
     }
     break;
   default:
+    $clientId = $_SESSION['clientData']['clientId'];
+    $reviews = getReviewByClient($clientId);
+    $reviewsDisplay = '';
+    foreach ($reviews as $key => $review) {
+      $reviewsDisplay .= getReviewListView($review);
+    }
     include '../view/admin.php';
     break;
 }
