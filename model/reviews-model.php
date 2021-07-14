@@ -1,28 +1,24 @@
 <?php
 function regReview(
-    $reviewId,
     $reviewText,
-    $reviewDate,
     $invId,
     $clientId
 ) {
     // Create a connection object using the phpmotors connection function
     $db = phpmotorsConnect();
     // The SQL statement
-    $sql = 'INSERT INTO reviews (reviewId,reviewText,reviewDate,invId,clientId)
-        VALUES (:reviewId,:reviewText,:reviewDate,:invId,:clientId)';
+    $sql = 'INSERT INTO reviews (reviewText,invId,clientId)
+        VALUES (:reviewText,:invId,:clientId)';
     $stmt = $db->prepare($sql);
-    $stmt->bindValue(':reviewId', $reviewId, PDO::PARAM_INT);
     $stmt->bindValue(':reviewText', $reviewText, PDO::PARAM_STR);
-    $stmt->bindValue(':reviewDate', $reviewDate, PDO::PARAM_STR);
-    $stmt->bindValue(':invId', $invId, PDO::PARAM_INT;
+    $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
     $stmt->bindValue(':clientId', $clientId, PDO::PARAM_INT);
-
     $stmt->execute();
     $rowsChanged = $stmt->rowCount();
     $stmt->closeCursor();
     return $rowsChanged;
 }
+<<<<<<< HEAD
 // Get vehicles by classificationId 
 function getInventoryByClassification($classificationId)
 {
@@ -84,11 +80,58 @@ function deleteVehicle($invId)
     $sql = 'DELETE FROM inventory WHERE invId = :invId';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
+=======
+function getReviewByInv($invId){
+    $db = phpmotorsConnect();
+    $sql = ' SELECT c.clientFirstname, c.clientLastname, r.reviewDate, r.reviewText 
+    FROM reviews r INNER JOIN clients c ON r.clientId=c.clientId WHERE r.invId=:invId';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
+    $stmt->execute();
+    $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $reviews;
+}
+function getReviewByClient($clientId){
+    $db = phpmotorsConnect();
+    $sql = ' SELECT r.reviewId,i.invMake, i.invModel, r.reviewDate
+    FROM reviews r INNER JOIN inventory i ON r.invId=i.invId
+    WHERE r.clientId=:clientId';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':clientId', $clientId, PDO::PARAM_INT);
+    $stmt->execute();
+    $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $reviews;
+}
+function getReviewById($reviewId){
+    $db = phpmotorsConnect();
+    $sql = ' SELECT *
+    FROM reviews 
+    WHERE reviewId=:reviewId';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':reviewId', $reviewId, PDO::PARAM_INT);
+    $stmt->execute();
+    $review = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $review;
+}
+function updateReview(
+    $reviewId,
+    $reviewText
+) {
+    $db = phpmotorsConnect();
+    $sql = 'UPDATE reviews SET reviewText = :reviewText WHERE reviewId = :reviewId';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':reviewText', $reviewText, PDO::PARAM_STR);
+    $stmt->bindValue(':reviewId', $reviewId, PDO::PARAM_INT);
+>>>>>>> 37e4381a16f4d5f7e4fccff62607d67eb81f0653
     $stmt->execute();
     $rowsChanged = $stmt->rowCount();
     $stmt->closeCursor();
     return $rowsChanged;
 }
+<<<<<<< HEAD
 function getVehiclesByClassification($classificationName)
 {
     $db = phpmotorsConnect();
@@ -151,3 +194,16 @@ function getVehicleThumbnail($invId)
     $stmt->closeCursor();
     return $vehicles;
 }
+=======
+function deleteReview($reviewId)
+{
+    $db = phpmotorsConnect();
+    $sql = 'DELETE FROM reviews WHERE reviewId = :reviewId';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':reviewId', $reviewId, PDO::PARAM_INT);
+    $stmt->execute();
+    $rowsChanged = $stmt->rowCount();
+    $stmt->closeCursor();
+    return $rowsChanged;
+}
+>>>>>>> 37e4381a16f4d5f7e4fccff62607d67eb81f0653

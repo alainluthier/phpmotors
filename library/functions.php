@@ -232,3 +232,18 @@ function resizeImage($old_image_path, $new_image_path, $max_width, $max_height)
   // Free any memory associated with the old image
   imagedestroy($old_image);
 } // ends resizeImage function
+function getScreenName($firstName,$lastName){
+  $screenName=strtoupper(substr($firstName,0,1)).
+  strtoupper(substr($lastName,0,1)).
+  strtolower(substr($lastName,1));
+  return $screenName;
+}
+function getReviewsView($review){
+  $screenName=getScreenName($review['clientFirstname'],$review['clientLastname']);
+  $date = date("d F, Y",$review['reviewDate']);
+  $id = '<div class="review">';
+  $id .="<h4><span>$screenName</span> wrote $date:</h4>";
+  $id .="<p>$review[reviewText]</p>";
+  $id .='</div>';
+  return $id;
+}

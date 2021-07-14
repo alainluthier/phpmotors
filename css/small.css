@@ -261,3 +261,11 @@ form {
 .img-small{
     display: none;
 }
+.review{
+    background-color: lightyellow;
+    padding: 1rem 2rem 1rem 2rem;
+}
+.review p{
+    background-color: white;
+    padding: 1rem 0.7rem 1rem 0.7rem;
+}

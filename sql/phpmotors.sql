@@ -182,6 +182,10 @@ ALTER TABLE `clients`
 ALTER TABLE `images`
   MODIFY `imgId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
+INSERT INTO `clients` (`clientId`, `clientFirstname`,`clientLastname`,`clientEmail`,`clientPassword`,`clientLevel` ) VALUES
+(1, 'Admin','Administrator','admin@cse340.net','$2y$10$hg9EhPlL1GmyoE8TdU6CMOLBsBdRIcB5F/huEZ6sfgi1D2unZUAFq','3'),
+(2, 'Adam','Hansen','adam@test.com','$2y$10$HZUr1XW7NeCKSdHKLjrLMeGWbvqDrmQ7xdPmi9d5OdCDwoBX9uqFC','1'); 
+
 --
 -- AUTO_INCREMENT de la tabla `inventory`
 --

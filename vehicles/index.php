@@ -9,8 +9,11 @@ require_once '../model/main-model.php';
 
 require_once '../model/vehicles-model.php';
 
+require_once '../model/reviews-model.php';
+
 // Get the functions library
 require_once '../library/functions.php';
+
 
 $classifications = getClassifications();
 
@@ -205,6 +208,12 @@ switch ($action) {
     } else {
       $thumbnail = getVehicleThumbnail($vehicle['invId']);
       $vehicleDetailDisplay = buildVehicleDetailDisplay($vehicle,$thumbnail);
+    }
+    $screenName = getScreenName($_SESSION['clientData']['clientFirstname'],$_SESSION['clientData']['clientLastname']);
+    $reviews = getReviewByInv($vehicle['invId']);
+    $reviewsDetailDisplay = '';
+    foreach ($reviews as $key => $review) {
+      $reviewsDetailDisplay.=getReviewsView($review);  
     }
     include '../view/view-detail.php';
     break;
