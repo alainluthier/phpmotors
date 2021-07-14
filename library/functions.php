@@ -240,7 +240,7 @@ function getScreenName($firstName,$lastName){
 }
 function getReviewsView($review){
   $screenName=getScreenName($review['clientFirstname'],$review['clientLastname']);
-  $date = date("d F, Y",$review['reviewDate']);
+  $date = date("d F, Y",strtotime($review['reviewDate']));
   $id = '<div class="review">';
   $id .="<h4><span>$screenName</span> wrote $date:</h4>";
   $id .="<p>$review[reviewText]</p>";

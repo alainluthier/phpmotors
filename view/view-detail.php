@@ -30,8 +30,8 @@
         <h2>Customer Reviews</h2>
         <h2>Review The <?php echo $vehicle['invMake']." ".$vehicle['invModel'] ?></h2>
         <?php
-            if (isset($message)) {
-                echo $message;
+            if (isset($_SESSION['message'])) {
+                echo $_SESSION['message'];
             } ?>
         <?php
         if (!$_SESSION['loggedin']) {
@@ -48,17 +48,19 @@
                     <textarea class="txtarea" name="reviewText" id="reviewText" cols="30" rows="5"></textarea>
                 </div>
                 <input type="hidden" name="action" value="addReview">
-                <input type="hidden" name="clientId" value="'.$vehicle['invId'].'">
-                <input type="hidden" name="invId" value="'.$_SESSION['clientData']['clientId'].'">
+                <input type="hidden" name="invId" value="'.$vehicle['invId'].'">
+                <input type="hidden" name="invMake" value="'.$vehicle['invMake'].'">
+                <input type="hidden" name="invModel" value="'.$vehicle['invModel'].'">
+                <input type="hidden" name="clientId" value="'.$_SESSION['clientData']['clientId'].'">
                 <button class="primary" type="submit">Submit Review</button>
             </form>
            '; 
+           echo $firstReview;
         }?>
-        <h3>Be the first to write a review.</h3>
-        <div class="review">
-            <h4><span>AUser</span> wrote on 17 March, 2020:</h4>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis mollitia molestias sapiente, sequi reiciendis, nihil odit commodi architecto, qui a exercitationem corrupti non natus? Quis magni repellat laborum perspiciatis deserunt!</p>
-        </div>
+        
+        <?php 
+            echo $reviewsDetailDisplay;
+        ?>
         </main>
         <footer>
             <?php require $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/footer.php'; ?>

@@ -23,19 +23,21 @@ switch ($action) {
     case 'addReview':
         $reviewText = trim(filter_input(INPUT_POST, 'reviewText', FILTER_SANITIZE_STRING));
         $invId = trim(filter_input(INPUT_POST, 'invId', FILTER_SANITIZE_NUMBER_INT));
+        $invMake = trim(filter_input(INPUT_POST, 'invMake', FILTER_SANITIZE_STRING));
+        $invModel = trim(filter_input(INPUT_POST, 'invModel', FILTER_SANITIZE_STRING));
         $clientId = trim(filter_input(INPUT_POST, 'clientId', FILTER_SANITIZE_NUMBER_INT));
         if (empty($reviewText) || empty($invId) || empty($clientId)) {
-            $message = '<p class="red">Please provide information for all empty form fields.</p>';
-            include '../view/view-detail.php';
+            $_SESSION['message'] = '<p class="red">Please provide information for all empty form fields.</p>';
+            header("Location: /phpmotors/vehicles?action=vehicle&invMake=".$invMake."&invModel=" . $invModel);
             exit;
         }
+        unset($_SESSION['message']);
         $regOutcome = regReview(
             $reviewText,
             $invId,
             $clientId
         );
-        echo "add Review";
-        include '../view/view-detail.php';
+        header("Location: /phpmotors/vehicles?action=vehicle&invMake=".$invMake."&invModel=" . $invModel);
         break;
     case 'editReview':
         break;

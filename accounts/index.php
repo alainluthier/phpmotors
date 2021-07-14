@@ -105,6 +105,7 @@ switch ($action) {
       include '../view/login.php';
       exit;
     }
+    unset($_SESSION['message']);
     // A valid user exists, log them in
     $_SESSION['loggedin'] = TRUE;
     // Remove the password from the array
@@ -120,6 +121,7 @@ switch ($action) {
   case 'Logout':
     unset($_SESSION['loggedin']);
     unset($_SESSION['clientData']);
+    unset($_SESSION['message']);
     session_destroy();
     header('Location: /phpmotors/');
     break;
