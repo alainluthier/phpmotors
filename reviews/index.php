@@ -31,7 +31,7 @@ switch ($action) {
             header("Location: /phpmotors/vehicles?action=vehicle&invMake=" . $invMake . "&invModel=" . $invModel);
             exit;
         }
-        $_SESSION['message'] = '<p class="red">Thank you for the review it is displayed below.</p>';
+        $_SESSION['messageVehicle'] = '<p class="red">Thank you for the review it is displayed below.</p>';
         $regOutcome = regReview(
             $reviewText,
             $invId,
@@ -66,9 +66,29 @@ switch ($action) {
         }
         break;
     case 'confirmDeleteReview':
+        $reviewId = filter_input(INPUT_GET, 'reviewId', FILTER_SANITIZE_NUMBER_INT);
+        $review = getReviewById($reviewId);
+        include '../view/review-delete.php';        
         break;
     case 'deleteReview':
-        break;
+        $reviewId = filter_input(INPUT_POST, 'reviewId', FILTER_SANITIZE_NUMBER_INT);
+        if (empty($reviewId)) {
+            $message = '<p class="red">Please complete all information for the review.</p>';
+            include '../view/review-delete.php';
+            exit;
+        }
+        $review = getReviewById($reviewId);
+        $deleteResult = deleteReview($reviewId);
+        if ($deleteResult) {
+            $message = "<p class='red'>The review was deleted successfully.</p>";
+            $_SESSION['message'] = $message;
+            header('location: /phpmotors/accounts');
+            exit;
+        } else {
+            $message = "<p class='red'>Error. the review was not deleted.</p>";
+            include '../view/review-delete.php';
+            exit;
+        }
     default:
         include '../view/vehicle-man.php';
         exit;

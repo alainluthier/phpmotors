@@ -116,6 +116,15 @@ switch ($action) {
     // Store the array into the session
     $_SESSION['clientData'] = $clientData;
     // Send them to the admin view
+    $clientId = $_SESSION['clientData']['clientId'];
+    $reviews = getReviewByClient($clientId);
+    $reviewsDisplay = "";
+    foreach ($reviews as $key => $review) {
+      $reviewsDisplay .= getReviewListView($review);
+    }
+    if($reviewsDisplay==""){
+      $reviewsDisplay = '<p>There are no reviews <p>';
+    }
     include '../view/admin.php';
     exit;
     break;
@@ -123,6 +132,7 @@ switch ($action) {
     unset($_SESSION['loggedin']);
     unset($_SESSION['clientData']);
     unset($_SESSION['message']);
+    unset($_SESSION['messageVehicle']);
     session_destroy();
     header('Location: /phpmotors/');
     break;
@@ -200,9 +210,12 @@ switch ($action) {
   default:
     $clientId = $_SESSION['clientData']['clientId'];
     $reviews = getReviewByClient($clientId);
-    $reviewsDisplay = '';
+    $reviewsDisplay = "";
     foreach ($reviews as $key => $review) {
       $reviewsDisplay .= getReviewListView($review);
+    }
+    if($reviewsDisplay==""){
+      $reviewsDisplay = '<p>There are no reviews <p>';
     }
     include '../view/admin.php';
     break;

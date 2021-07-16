@@ -209,7 +209,11 @@ switch ($action) {
       $thumbnail = getVehicleThumbnail($vehicle['invId']);
       $vehicleDetailDisplay = buildVehicleDetailDisplay($vehicle, $thumbnail);
     }
-    $screenName = getScreenName($_SESSION['clientData']['clientFirstname'], $_SESSION['clientData']['clientLastname']);
+    if (isset($_SESSION['loggedin'])) {
+      if ($_SESSION['loggedin']) {
+        $screenName = getScreenName($_SESSION['clientData']['clientFirstname'], $_SESSION['clientData']['clientLastname']);
+      }
+    }
     $reviews = getReviewByInv($vehicle['invId']);
     $firstReview = '';
     if (count($reviews) < 1) {
